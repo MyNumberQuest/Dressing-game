@@ -341,11 +341,11 @@ function receipt(){
 }
 var DIFF=[
 {n:'쉬움',target:800000,g0:100000,gs:10000,need:.3,bm:1.2,lives:0},
-{n:'보통',target:2000000,g0:200000,gs:20000,need:.5,bm:1,lives:5},
-{n:'어려움',target:3000000,g0:300000,gs:25000,need:.66,bm:1,lives:3},
-{n:'지옥',target:4000000,g0:400000,gs:20000,need:.66,bm:.9,lives:2},
-{n:'신',target:6000000,g0:450000,gs:20000,need:1,bm:.85,lives:1},
-{n:'불가능',target:100000000,g0:1000000,gs:0,need:1,bm:.7,lives:1}
+{n:'보통',target:2000000,g0:200000,gs:20000,need:.5,bm:1,lives:10},
+{n:'어려움',target:3000000,g0:300000,gs:25000,need:.66,bm:1,lives:5},
+{n:'지옥',target:4000000,g0:400000,gs:20000,need:.66,bm:.9,lives:4},
+{n:'신',target:6000000,g0:450000,gs:20000,need:1,bm:.85,lives:3},
+{n:'불가능',target:100000000,g0:1000000,gs:0,need:1,bm:.7,lives:2}
 ];
 function has(k,a){return a.indexOf(sel[k][0])>=0}
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
