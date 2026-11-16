@@ -37,6 +37,7 @@ h1{font-size:28px;margin:0 0 4px;font-weight:400}
 .stats{display:flex;flex-wrap:wrap;gap:4px 12px;justify-content:space-between;color:var(--mute);margin-bottom:8px}
 .pick input[type=text]{width:auto;height:auto;flex:1;min-width:0;padding:8px 12px;font:inherit;color:var(--ink);background:var(--panel)}
 .vip{background:#e8b04a;color:#3a2a00;border-radius:6px;padding:0 6px;font-size:14px;margin-right:6px}
+.ctag{background:var(--acc);color:var(--accink)}
 .bar{height:10px;background:var(--line);border-radius:6px;overflow:hidden;margin-bottom:12px}
 .bar i{display:block;height:100%;background:var(--acc)}
 .act small{color:var(--mute);font-size:14px}
@@ -93,6 +94,9 @@ var CATS=[
 {id:'socks',label:'양말',styles:['없음','짧은 양말','긴 양말','줄무늬 양말','무릎 위 양말','물방울 양말'],colors:['#ffffff','#2b2540','#ff7a7a','#ffd24a','#5b7cf0','#3dbe9b']},
 {id:'bag',label:'가방',styles:['없음','백팩','크로스백','토트백','숄더백','힙색'],colors:['#8a5a36','#2b2540','#ff7a7a','#ffd24a','#3dbe9b','#5b7cf0']},
 {id:'acc',label:'소품',styles:['없음','안경','선글라스','모자','리본','왕관','비니','머리띠'],colors:['#2b2540','#ff7a7a','#ffd24a','#3dbe9b','#5b7cf0','#ffffff']},
+{id:'ring',label:'반지',styles:['없음','심플 반지','보석 반지','양손 반지'],colors:['#e8b04a','#c9c9d6','#e8a08a','#2b2540','#fdf6ee','#5b7cf0','#d94f6b','#3dbe9b']},
+{id:'neck',label:'목걸이',styles:['없음','체인 목걸이','진주 목걸이','펜던트 목걸이','초커'],colors:['#e8b04a','#c9c9d6','#e8a08a','#2b2540','#fdf6ee','#5b7cf0','#d94f6b','#3dbe9b']},
+{id:'ear',label:'귀걸이',styles:['없음','스터드','링 귀걸이','드롭 귀걸이'],colors:['#e8b04a','#c9c9d6','#e8a08a','#2b2540','#fdf6ee','#5b7cf0','#d94f6b','#3dbe9b']},
 {id:'face',label:'표정',styles:['미소','활짝 웃음','윙크','놀람','시무룩'],colors:[]},
 {id:'pose',label:'포즈',styles:['차렷','손 흔들기','만세','팔 벌리기'],colors:[]},
 {id:'skin',label:'피부',styles:null,colors:['#ffe0c7','#f7c9a3','#e0a678','#b97b50','#8a5a38']},
@@ -106,7 +110,7 @@ var CATS=[
   extra.forEach(function(k){if(c.colors.indexOf(k)<0)c.colors.push(k)});
  });
 })();
-var DEF={hair:[0,0],top:[0,0],bottom:[0,0],shoes:[0,0],outer:[0,0],socks:[0,0],bag:[0,0],acc:[0,0],face:[0,0],pose:[0,0],skin:[0,0],bg:[0,0]};
+var DEF={hair:[0,0],top:[0,0],bottom:[0,0],shoes:[0,0],outer:[0,0],socks:[0,0],bag:[0,0],acc:[0,0],ring:[0,0],neck:[0,0],ear:[0,0],face:[0,0],pose:[0,0],skin:[0,0],bg:[0,0]};
 var sel,tab='hair',g='f',mode='play';
 function reset(){sel=JSON.parse(JSON.stringify(DEF))}
 reset();
@@ -187,6 +191,10 @@ function draw(){
  if(OU===5)o+='<rect x="74" y="140" width="40" height="160" rx="10" fill="'+oc+'"/><rect x="126" y="140" width="40" height="160" rx="10" fill="'+oc+'"/><rect x="56" y="142" width="26" height="98" rx="12" fill="'+oc+'"/><rect x="158" y="142" width="26" height="98" rx="12" fill="'+oc+'"/><g fill="'+shade(oc,-50)+'"><circle cx="106" cy="176" r="3"/><circle cx="106" cy="206" r="3"/><circle cx="106" cy="236" r="3"/></g>';
  if(BG===4)o+='<rect x="86" y="142" width="6" height="84" rx="3" fill="'+shade(gc,-40)+'"/><rect x="76" y="222" width="40" height="30" rx="8" fill="'+gc+'"/><rect x="76" y="222" width="40" height="10" rx="5" fill="'+shade(gc,-40)+'"/>';
  if(BG===5)o+='<rect x="80" y="232" width="80" height="8" rx="4" fill="'+shade(gc,-40)+'"/><rect x="104" y="228" width="32" height="20" rx="8" fill="'+gc+'"/>';
+ var RG=sel.ring[0],rc=col('ring');
+ if(RG>=1)o+='<rect x="60" y="241" width="20" height="4" rx="2" fill="'+rc+'"/>';
+ if(RG===2)o+='<rect x="60" y="238" width="10" height="8" rx="3" fill="'+shade(rc,40)+'" stroke="'+rc+'" stroke-width="1.5"/>';
+ if(RG===3)o+='<rect x="160" y="241" width="20" height="4" rx="2" fill="'+rc+'"/>';
  if(BG===1)o+='<rect x="48" y="158" width="18" height="62" rx="9" fill="'+gc+'"/><rect x="174" y="158" width="18" height="62" rx="9" fill="'+gc+'"/><rect x="90" y="142" width="7" height="86" rx="3" fill="'+shade(gc,-40)+'"/><rect x="143" y="142" width="7" height="86" rx="3" fill="'+shade(gc,-40)+'"/>';
  if(BG===2)o+='<path d="M92 142 L152 240" stroke="'+shade(gc,-40)+'" stroke-width="6"/><rect x="124" y="226" width="34" height="26" rx="6" fill="'+gc+'"/><rect x="124" y="226" width="34" height="9" rx="4" fill="'+shade(gc,-40)+'"/>';
  if(BG===3)o+='<rect x="34" y="236" width="30" height="24" rx="14" fill="none" stroke="'+shade(gc,-40)+'" stroke-width="4"/><rect x="28" y="252" width="42" height="46" rx="8" fill="'+gc+'"/>';
@@ -210,6 +218,14 @@ function draw(){
  if(!M&&hs===5)o+=fr;
  if(M&&hs===4)o+='<path d="M86 84 Q84 44 120 44 Q156 44 154 84 Q148 62 120 60 Q92 62 86 84Z" fill="'+hc+'"/>';
  if(M&&hs===5)o+=fr+'<circle cx="96" cy="54" r="13" fill="'+hc+'"/><circle cx="120" cy="46" r="13" fill="'+hc+'"/><circle cx="144" cy="54" r="13" fill="'+hc+'"/><circle cx="84" cy="72" r="11" fill="'+hc+'"/><circle cx="156" cy="72" r="11" fill="'+hc+'"/>';
+ var NK=sel.neck[0],nc=col('neck'),ER=sel.ear[0],ec=col('ear');
+ if(NK===1)o+='<path d="M109 134 Q120 162 131 134" fill="none" stroke="'+nc+'" stroke-width="2.5"/>';
+ if(NK===2)for(var i=0;i<7;i++){var px=109+i*3.67,py=134+14*(1-Math.pow((px-120)/11,2));o+='<circle cx="'+px.toFixed(1)+'" cy="'+py.toFixed(1)+'" r="3.2" fill="'+nc+'" stroke="'+shade(nc,-40)+'" stroke-width=".8"/>'}
+ if(NK===3)o+='<path d="M109 134 Q120 162 131 134" fill="none" stroke="'+nc+'" stroke-width="2.5"/><path d="M120 146 l5.5 6 -5.5 8 -5.5 -8z" fill="'+shade(nc,45)+'" stroke="'+nc+'" stroke-width="1.5"/>';
+ if(NK===4)o+='<path d="M107 129 Q120 141 133 129" fill="none" stroke="'+nc+'" stroke-width="5" stroke-linecap="round"/>';
+ if(ER===1)o+='<circle cx="81" cy="102" r="3.2" fill="'+ec+'"/><circle cx="159" cy="102" r="3.2" fill="'+ec+'"/>';
+ if(ER===2)o+='<circle cx="81" cy="108" r="6" fill="none" stroke="'+ec+'" stroke-width="2.5"/><circle cx="159" cy="108" r="6" fill="none" stroke="'+ec+'" stroke-width="2.5"/>';
+ if(ER===3)o+='<path d="M81 102 V112 M159 102 V112" stroke="'+ec+'" stroke-width="2"/><circle cx="81" cy="116" r="4.2" fill="'+shade(ec,40)+'" stroke="'+ec+'" stroke-width="1.5"/><circle cx="159" cy="116" r="4.2" fill="'+shade(ec,40)+'" stroke="'+ec+'" stroke-width="1.5"/>';
  // accessories
  if(as===1)o+='<g fill="none" stroke="'+ac+'" stroke-width="3"><circle cx="104" cy="96" r="11"/><circle cx="136" cy="96" r="11"/><path d="M115 96 H125"/></g>';
  if(as===2)o+='<g fill="'+ac+'"><rect x="91" y="87" width="26" height="18" rx="7"/><rect x="123" y="87" width="26" height="18" rx="7"/><rect x="115" y="92" width="10" height="4"/></g>';
@@ -262,12 +278,12 @@ function renderGender(){
   b.setAttribute('aria-pressed',g===p[0]);
   b.onclick=function(){if(g===p[0])return;g=p[0];sel.hair[0]=0;sel.top[0]=0;sel.bottom[0]=0;renderGender();update()};w.appendChild(b)});
 }
-var PRICE={top:[15000,25000,38000,12000,30000],bottom:[20000,18000,22000,26000,18000],shoes:[30000,45000,15000,40000,38000],outer:[0,35000,60000,90000,28000,120000],socks:[0,3000,5000,6000,7000,5000],bag:[0,25000,30000,22000,35000,18000],acc:[0,8000,10000,12000,5000,15000,9000,5000]};
+var PRICE={top:[15000,25000,38000,12000,30000],bottom:[20000,18000,22000,26000,18000],shoes:[30000,45000,15000,40000,38000],outer:[0,35000,60000,90000,28000,120000],socks:[0,3000,5000,6000,7000,5000],bag:[0,25000,30000,22000,35000,18000],acc:[0,8000,10000,12000,5000,15000,9000,5000],ring:[0,12000,35000,24000],neck:[0,18000,40000,30000,12000],ear:[0,8000,15000,20000]};
 var HIDE={hair:1,skin:1,bg:1,face:1,pose:1};
-var cur,cname='',res=null,served=0,sales=0,last=-1,day=1,dayN=0,daySales=0,perDay=5,regs=[],isReg=null,summary=null,lastName='',disc=0,D=null,lives=0,rating=3,isVip=false,cstyle=null,shopName='우리 옷 가게';
+var cur,cname='',res=null,served=0,sales=0,last=-1,day=1,dayN=0,daySales=0,perDay=5,regs=[],isReg=null,summary=null,lastName='',disc=0,D=null,lives=0,rating=3,isVip=false,cstyle=null,ctype=null,shopName='우리 옷 가게';
 function won(n){return n.toLocaleString('ko-KR')+'원'}
 function priceTxt(id,i){return mode==='shop'&&PRICE[id]?' '+won(PRICE[id][i]):''}
-function total(){var t=0;['top','bottom','shoes','outer','socks','bag','acc'].forEach(function(k){if(k==='bottom'&&g==='f'&&sel.top[0]===2)return;t+=PRICE[k][sel[k][0]]});return t}
+function total(){var t=0;['top','bottom','shoes','outer','socks','bag','acc','ring','neck','ear'].forEach(function(k){if(k==='bottom'&&g==='f'&&sel.top[0]===2)return;t+=PRICE[k][sel[k][0]]});return t}
 function bright(h){var n=parseInt(h.slice(1),16);return((n>>16)*299+(n>>8&255)*587+(n&255)*114)/1000}
 var REQ=[
 {t:'내일 소풍 가요! 편하게 입을 수 있고 밝은 색이면 좋겠어요.',b:100000,c:[['밝은 색 상의',function(){return bright(col('top'))>150}],['운동화',function(){return sel.shoes[0]===0}],['바지나 반바지',function(){return(g==='m'||sel.top[0]!==2)&&!(g==='f'&&sel.bottom[0]===1)}],['가방',function(){return sel.bag[0]!==0}]]},
@@ -282,7 +298,12 @@ var REQ=[
 {t:'졸업식에 가요! 단정하고 예쁘게 입을래요.',b:130000,c:[['원피스나 셔츠, 스웨터',function(){return has('top',[2,4])}],['부츠나 로퍼',function(){return has('shoes',[1,4])}],['꾸밀 소품',function(){return has('acc',[1,4,5,7])}]]},
 {t:'친구랑 카페 가요. 편안하고 귀엽게 입고 싶어요.',b:90000,c:[['밝은 색 상의',function(){return bright(col('top'))>150}],['가방',function(){return has('bag',[2,3,4,5])}],['편한 신발',function(){return has('shoes',[0,3])}]]},
 {t:'헬스장 가요! 시원하게 입고 싶어요.',b:80000,c:[['민소매',function(){return sel.top[0]===3}],['반바지나 슬림한 하의',function(){return g==='m'?has('bottom',[1,4]):has('bottom',[2,4])}],['운동화',function(){return has('shoes',[0,3])}]]},
-{t:'중요한 회의가 있어요. 자신감 있게 보이고 싶어요.',b:180000,c:[['셔츠나 원피스',function(){return sel.top[0]===2}],['재킷이나 코트',function(){return has('outer',[2,5])}],['부츠나 로퍼',function(){return has('shoes',[1,4])}]]}
+{t:'중요한 회의가 있어요. 자신감 있게 보이고 싶어요.',b:180000,c:[['셔츠나 원피스',function(){return sel.top[0]===2}],['재킷이나 코트',function(){return has('outer',[2,5])}],['부츠나 로퍼',function(){return has('shoes',[1,4])}]]},
+{t:'친구 결혼식에 가요! 우아하게 꾸미고 싶어요.',b:200000,c:[['셔츠나 원피스',function(){return sel.top[0]===2}],['목걸이',function(){return sel.neck[0]!==0}],['귀걸이',function(){return sel.ear[0]!==0}],['부츠나 로퍼',function(){return has('shoes',[1,4])}]]},
+{t:'기념일이에요! 반지랑 목걸이로 포인트를 주고 싶어요.',b:170000,c:[['반지',function(){return sel.ring[0]!==0}],['목걸이',function(){return sel.neck[0]!==0}],['밝은 색 상의',function(){return bright(col('top'))>140}]]},
+{t:'클럽 파티에 가요! 반짝이는 소품을 하고 싶어요.',b:140000,c:[['귀걸이',function(){return sel.ear[0]!==0}],['어두운 상의',function(){return bright(col('top'))<100}],['선글라스나 왕관',function(){return has('acc',[2,5])}]]},
+{t:'첫 월급 받았어요! 나한테 선물하고 싶어요.',b:250000,c:[['외투',function(){return sel.outer[0]!==0}],['가방',function(){return sel.bag[0]!==0}],['목걸이나 귀걸이',function(){return sel.neck[0]!==0||sel.ear[0]!==0}]]},
+{t:'여름 휴가 가요! 가볍고 반짝반짝하게요.',b:120000,c:[['민소매',function(){return sel.top[0]===3}],['선글라스',function(){return sel.acc[0]===2}],['귀걸이',function(){return sel.ear[0]!==0}]]}
 ];
 function rnd(n){return Math.floor(Math.random()*n)}
 function newCustomer(){
@@ -291,11 +312,12 @@ function newCustomer(){
  var k;do{k=rnd(REQ.length)}while(k===last);last=k;cur=REQ[k];
  g=Math.random()<.5?'f':'m';
  var nm=g==='f'?['민지','서연','하은','지우','수아','예린','다은','채원']:['준호','도윤','지후','민재','현우','시윤','태양','건우'];cname=nm[rnd(8)];
- reset();sel.skin=[0,rnd(5)];sel.hair=[rnd(6),rnd(6)];sel.bg=[0,0];res=null;summary=null;tab='top';isReg=null;disc=0;
+ reset();sel.skin=[0,rnd(5)];sel.hair=[rnd(6),rnd(6)];sel.bg=[0,0];sel.face=[rnd(5),0];res=null;summary=null;tab='top';isReg=null;disc=0;
  var cand=regs.filter(function(r){return r.name!==lastName});
  if(cand.length&&Math.random()<.35){isReg=cand[rnd(cand.length)];g=isReg.g;cname=isReg.name;sel.skin=[0,isReg.skin];sel.hair=isReg.hair.slice()}
  isVip=!isReg&&Math.random()<vipP();
  cstyle=Math.random()<.7?STYLES[rnd(STYLES.length)]:null;
+ var rr=Math.random();ctype=CT[rr<.4?0:rr<.58?1:rr<.7?2:rr<.85?3:4];
  renderTabs();update();renderShop();
 }
 function refreshTotal(){var e=document.getElementById('tot');if(e&&D){e.textContent=disc?won(total())+' → '+won(pay()):won(total());e.style.color=pay()>bud()?'var(--pop)':'inherit'}}
@@ -304,7 +326,7 @@ function renderShop(){
  if(!D){s.innerHTML=selectHtml();Array.prototype.forEach.call(s.querySelectorAll('[data-lv]'),function(b){b.onclick=function(){var v=document.getElementById('sname');shopName=((v&&v.value)||'').trim().slice(0,12)||'우리 옷 가게';startGame(+b.getAttribute('data-lv'))}});return}
  var h='<div class="sign"><b>'+esc(shopName)+'</b><small>영업 중</small></div><div class="stats"><span>'+D.n+' · '+day+'일차 · 손님 '+dayN+'/'+perDay+(D.lives?' · 기회 '+'♥'.repeat(lives):'')+'</span><span>오늘 '+won(daySales)+' / 목표 '+won(goal())+'</span></div><div class="stats"><span>총 매출 '+won(sales)+' / 클리어 '+won(D.target)+'</span><span>단골 '+regs.length+'명'+(regs.length?' ('+regs.map(function(r){return r.name}).join(', ')+')':'')+'</span></div><div class="stats"><span>가게 평점 <b>★ '+rating.toFixed(1)+'</b></span><span>VIP 손님 확률 '+Math.round(vipP()*100)+'%</span></div><div class="bar"><i style="width:'+Math.min(100,sales/D.target*100)+'%"></i></div>';
  if(summary){s.innerHTML=h+summary;var sb=document.getElementById('nxt2');if(sb)sb.onclick=nextDay;var ag=document.getElementById('again');if(ag)ag.onclick=function(){D=null;summary=null;newCustomer()};return}
- h+='<div class="bubble"><b>'+(isVip?'<span class="vip">VIP</span>':'')+cname+' 손님'+(isReg?' (단골)':'')+'</b><p>“'+cur.t+'”</p>'+(cstyle?'<p>“'+cstyle.n+' 스타일이면 좋겠어요.”</p>':'')+'<p>예산 '+won(bud())+' · 고른 옷 <b id="tot"></b></p></div>';
+ h+='<div class="bubble"><b>'+(isVip?'<span class="vip">VIP</span>':'')+(ctype.n?'<span class="vip ctag">'+ctype.n+'</span>':'')+cname+' 손님'+(isReg?' (단골)':'')+'</b><p>“'+cur.t+'”</p>'+(cstyle?'<p>“'+cstyle.n+' 스타일이면 좋겠어요.”</p>':'')+(ctype.q?'<p>“'+ctype.q+'”</p>':'')+'<p>예산 '+won(bud())+' · 고른 옷 <b id="tot"></b></p></div>';
  h+=res?res:'<div class="chips" style="margin-bottom:10px">'+[0,10,20,30].map(function(d){return'<button class="chip" data-d="'+d+'" aria-pressed="'+(disc===d)+'">'+(d?d+'% 할인':'정가')+'</button>'}).join('')+'</div><button class="act pop" id="rec">이 옷 추천하기</button>';
  h+='<button class="chip" id="chg">난이도 다시 고르기</button>';s.innerHTML=h;refreshTotal();
  Array.prototype.forEach.call(s.querySelectorAll('[data-d]'),function(b){b.onclick=function(){disc=+b.getAttribute('data-d');renderShop()}});
@@ -315,15 +337,16 @@ function recommend(){
  var tot=pay(),ok=chk().map(function(x){return x[1]()}),n=ok.filter(Boolean).length,len=chk().length,msg,gain=0,st;
  if(tot>bud()){st=0;msg='너무 비싸요… 예산을 넘었어요. 다음에 올게요.'}
  else if(n===len){st=3;gain=Math.round(tot*1.1);msg='완벽해요! 이걸로 할게요. 팁도 드릴게요!'}
- else if(n>=Math.ceil(len*Math.max(D.need,isVip?.66:0))){st=2;gain=tot;msg='음, 괜찮네요. 이걸로 살게요.'}
+ else if(n>=Math.ceil(len*thr())){st=2;gain=tot;msg='음, 괜찮네요. 이걸로 살게요.'}
  else{st=1;msg='제가 원하던 느낌이 아니에요…'}
  var note='';
  if(isVip&&gain){gain=Math.round(gain*1.5);note='VIP 프리미엄! '}
+ if(ctype.n==='큰손'&&gain){gain=Math.round(gain*1.15);note+='큰손 팁! '}
  if(isReg&&gain){gain=Math.round(gain*1.2);note='단골 팁 포함! '}
  if(isReg&&st<=1){regs=regs.filter(function(r){return r!==isReg});note+='단골이 발길을 끊었어요… '}
  if(!isReg&&st===3){regs.push({name:cname,g:g,skin:sel.skin[1],hair:sel.hair.slice()});note+='단골이 되었어요! '}
  sales+=gain;daySales+=gain;dayN++;served++;lastName=cname;
- var w=isVip?.3:.2,sc=[1,2.5,4,5][st];rating=Math.max(1,Math.min(5,Math.round((rating*(1-w)+sc*w)*10)/10));
+ var w=isVip?.3:.2,sc=[1,2.5,4,5][st];if(ctype.n==='알뜸형'&&disc>=20&&gain)sc=Math.min(5,sc+1);if(ctype.nd===1)w+=.1;rating=Math.max(1,Math.min(5,Math.round((rating*(1-w)+sc*w)*10)/10));
  var rows=chk().map(function(x,i){return'<li>'+(ok[i]?'✓ ':'✗ ')+x[0]+'</li>'}).join('');
  res='<div class="res"><div class="stars" aria-label="별 '+st+'개">'+'★'.repeat(st)+'☆'.repeat(3-st)+'</div><p>“'+msg+'”</p><ul>'+rows+'</ul>'+(gain?receipt():'')+'<p>'+note+(gain?'판매 +'+won(gain):'판매 실패')+'</p></div><button class="act" id="nxt">'+(dayN>=perDay?'오늘 정산하기':'다음 손님')+'</button>';
  renderShop();
@@ -331,7 +354,7 @@ function recommend(){
 function pay(){return Math.round(total()*(100-disc)/10000)*100}
 function receipt(){
  var L='';
- ['top','bottom','shoes','outer','socks','bag','acc'].forEach(function(k){
+ ['top','bottom','shoes','outer','socks','bag','acc','ring','neck','ear'].forEach(function(k){
   if(k==='bottom'&&g==='f'&&sel.top[0]===2)return;
   var i=sel[k][0];if(i===0&&k!=='top'&&k!=='bottom'&&k!=='shoes')return;
   var c=CATS.filter(function(x){return x.id===k})[0],nm=(g==='m'&&c.m?c.m:c.styles)[i];
@@ -341,11 +364,11 @@ function receipt(){
 }
 var DIFF=[
 {n:'쉬움',target:800000,g0:100000,gs:10000,need:.3,bm:1.2,lives:0},
-{n:'보통',target:2000000,g0:200000,gs:20000,need:.5,bm:1,lives:10},
-{n:'어려움',target:3000000,g0:300000,gs:25000,need:.66,bm:1,lives:5},
-{n:'지옥',target:4000000,g0:400000,gs:20000,need:.66,bm:.9,lives:4},
-{n:'신',target:6000000,g0:450000,gs:20000,need:1,bm:.85,lives:3},
-{n:'불가능',target:100000000,g0:1000000,gs:0,need:1,bm:.7,lives:2}
+{n:'보통',target:2000000,g0:200000,gs:20000,need:.5,bm:1,lives:5},
+{n:'어려움',target:3000000,g0:300000,gs:25000,need:.66,bm:1,lives:3},
+{n:'지옥',target:4000000,g0:400000,gs:20000,need:.66,bm:.9,lives:2},
+{n:'신',target:6000000,g0:450000,gs:20000,need:1,bm:.85,lives:1},
+{n:'불가능',target:100000000,g0:1000000,gs:0,need:1,bm:.7,lives:1}
 ];
 function has(k,a){return a.indexOf(sel[k][0])>=0}
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
@@ -357,11 +380,13 @@ var STYLES=[
 {n:'스포티',r:[function(){return has('top',[1,3])},function(){return has('shoes',[0,3])},function(){return has('acc',[3,6,7])||sel.bag[0]===1}]},
 {n:'빈티지',r:[function(){return has('outer',[1,4,5])},function(){return has('bag',[3,4])},function(){return has('socks',[2,3,4])}]}
 ];
+var CT=[{n:'',bm:1,nd:0,q:''},{n:'알뜸형',bm:.75,nd:0,q:'가격이 제일 중요해요!'},{n:'큰손',bm:1.4,nd:0,q:'돈은 걱정하지 마세요.'},{n:'까다로움',bm:1,nd:1,q:'꼼꼼하게 골라 주세요.'},{n:'충동구매',bm:1,nd:.3,q:'마음에 들면 바로 살게요!'}];
+function thr(){var t=Math.max(D.need,isVip?.66:0);if(ctype.nd===1)t=1;else if(ctype.nd===.3)t=Math.min(t,.34);return t}
 function chk(){return cur.c.concat(cstyle?[['스타일 · '+cstyle.n,function(){return cstyle.r.filter(function(f){return f()}).length>=2}]]:[])}
 function custCount(){return Math.max(3,Math.min(8,Math.round(5+(rating-3)*1.5)))}
 function vipP(){return Math.max(0,(rating-3)*.15)}
 function goal(){return D.g0+(day-1)*D.gs}
-function bud(){return Math.round(cur.b*D.bm*(isVip?2:1)/1000)*1000}
+function bud(){return Math.round(cur.b*D.bm*(isVip?2:1)*ctype.bm/1000)*1000}
 function selectHtml(){
  return '<div class="sign"><b>'+esc(shopName)+'</b><small>오픈 준비</small></div><div class="bubble"><p>가게 이름을 정하고 난이도를 골라 주세요. 목표 매출을 모으면 클리어예요!</p></div><label class="pick" style="margin:0 0 12px">가게 이름 <input id="sname" type="text" maxlength="12" value="'+esc(shopName)+'" placeholder="우리 옷 가게"></label>'+DIFF.map(function(d,i){return'<button class="act" data-lv="'+i+'">'+d.n+' · 목표 '+won(d.target)+'<br><small>하루 목표 '+won(d.g0)+'부터 · '+(d.lives?'기회 '+d.lives+'번':'기회 무제한')+'</small></button>'}).join('');
 }
